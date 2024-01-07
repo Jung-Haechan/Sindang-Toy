@@ -12,7 +12,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-         $schedule->command('db:seed --class=ArticleSeeder')->hourly();
+        $schedule->command('db:seed --class=ArticleSeeder')->hourly();
     }
 
     /**
