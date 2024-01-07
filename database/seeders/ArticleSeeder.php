@@ -25,7 +25,7 @@ class ArticleSeeder extends Seeder
             try {
                 $lastTimestamp = Carbon::now();
                 $timestr = '';
-                while (Carbon::now()->subDays(4)->lt($lastTimestamp)) {
+                while (Carbon::now()->subDays(1)->lt($lastTimestamp)) {
                     $res = $client->request('get', "$press->pid/Politics?before=$timestr");
                     $result = json_decode($res->getBody()->getContents());
                     if (empty($result->list)) {
@@ -34,7 +34,7 @@ class ArticleSeeder extends Seeder
                     foreach ($result->list as $news) {
                         $timestr = $news->serviceTimeForMoreApi;
                         $timestamp = Carbon::createFromFormat('YmdHis', str_replace('00000', '', $timestr))->format('Y-m-d H:i:s');
-                        if (Carbon::now()->subDays(4)->gt($timestamp)) {
+                        if (Carbon::now()->subDays(1)->gt($timestamp)) {
                             continue 3;
                         }
                         Article::firstOrCreate([
